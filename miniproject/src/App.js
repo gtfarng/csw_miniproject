@@ -4,9 +4,6 @@ import ShowCovid from './component/ShowCovid'
 const App = () => {
 
 
-
-
-
   return(
     <div>
     <LoginForm />

@@ -4,18 +4,18 @@ const soap = require('soap');
 const bodyParser = require('body-parser')
 const url = 'https://passport.psu.ac.th/authentication/authentication.asmx?wsdl';
 const router = express.Router()
-const session = require('express-session')
 
 
 let app = express()
 let cors = require('cors');
 
-app.use(cors({ origin: ['http://localhost:3000'], methods:['GET', 'POST'], credentials: true }));
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 },resave : false, saveUninitialized: false }))
+app.use(cors());
 
 
-app.use('/', bodyParser.json(), router);   //[use json]
-app.use('/', bodyParser.urlencoded({ extended: false }), router);
+
+
+app.use('/api', bodyParser.json(), router);   //[use json]
+app.use('/api', bodyParser.urlencoded({ extended: false }), router);
 
 
 
@@ -34,7 +34,7 @@ app.use('/', bodyParser.urlencoded({ extended: false }), router);
 
 router.route('/login')
    .get((req, res) => {
-       console.log(req)
+       //console.log(req)
    })
    .post((req, res) => {
        soap.createClient(url, (err, client) => {
@@ -53,7 +53,7 @@ router.route('/login')
                         req.session.access_token = '123'
                         req.session.expires = 60000
                         res.send(response)
-                        res.redirect("http://localhost:8080")
+                        res.redirect("http://localhost:3001")
                      } else {
                         res.send("login false")
                      }
@@ -63,5 +63,5 @@ router.route('/login')
            }
        });
    })
-app.get('/', (req, res) => { res.send() }) 
+app.get('/', (req, res) => { res.send("please login") }) 
 app.listen(8080, () => console.log('Server is ready!'))
