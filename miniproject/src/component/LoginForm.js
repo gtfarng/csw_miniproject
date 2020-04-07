@@ -8,12 +8,12 @@ const LoginForm = () => {
   const [password,setPassword] = useState(0) ; 
 
     const getLogin = async () => {
-      const result = await axios.get(`http://localhost:8080/login`)
+      
       
       getLogin() 
     }
     const loginPSU = async () => {
-      const result = await axios.post(`http://localhost:8080/login` , {
+      const result = await axios.post(`http://159.192.142.113:8080/api/login` , {
         username , 
         password
       })

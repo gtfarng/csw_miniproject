@@ -63,5 +63,4 @@ router.route('/login')
            }
        });
    })
-app.get('/', (req, res) => { res.send("please login") }) 
-app.listen(8080, () => console.log('Server is ready!'))
+app.listen(80, () => console.log('Server is ready!'))
