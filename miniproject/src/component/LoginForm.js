@@ -1,23 +1,26 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-
+import  { redirect } from 'react-router-dom' ;
 
 const LoginForm = () => {
 
   const [username,setUsername] = useState('') ;
-  const [password,setPassword] = useState(0) ; 
+  const [password,setPassword] = useState('') ; 
 
     const getLogin = async () => {
       
-      
-      getLogin() 
+      console.log("Yech !!!")
     }
     const loginPSU = async () => {
-      const result = await axios.post(`http://159.192.142.113:8080/api/login` , {
+      axios.post(`http://100.0.0.100:8080/api/login` , {
         username , 
         password
+      }).then(res => {
+        console.log(res)
       })
-      getLogin()
+
+      //this.setstate({redirect: "/login/sucsess"})
+      //getLogin()
     }
 
     return (
@@ -39,9 +42,9 @@ const LoginForm = () => {
                 </div>
               </div>
 
-              <div className="field is-grouped">
-                <div className="control">
-                  <button className="button is-link" onClick={loginPSU} >Submit</button>
+              <div  align="center">
+                <div >
+                  <button className="button is-link "  onClick={getLogin} >Submit</button>
                 </div>
                 
               </div>

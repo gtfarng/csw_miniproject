@@ -46,19 +46,12 @@ router.route('/login')
 
                client.GetStaffDetails(user, function (err, response) {
                    // client.GetStudentDetails(args, function(err, response) {
-                   if (err) console.error(err);
+                    if (err) console.error(err);
                    else {
                        console.log(response);
-                       if (response.GetStaffDetailsResult.string[0]) {
-                        req.session.access_token = '123'
-                        req.session.expires = 60000
-                        res.send(response)
-                        res.redirect("http://localhost:3001")
-                     } else {
-                        res.send("login false")
-                     }
-                       
+                       res.send(response);
                    }
+
                });
            }
        });
