@@ -8,7 +8,7 @@ const Student = () => {
     const [email, setEmail] = useState('') ;
 
     useEffect(() => {
-
+        getStudents()
     }, []);
 
     const getStudents = async () => {
