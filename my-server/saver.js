@@ -8,8 +8,8 @@ app.use(cors());
 app.use('/api', bodyParser.json(), router);   //[use json]
 app.use('/api', bodyParser.urlencoded({ extended: false }), router);
 
-let students = [{ 'id': 583512110, 'name':'Akarachai Pannoi', 'email': 'ballboo088@gmail.com' },
-{ 'id': 5835512001 , 'name':'lord voldemort', 'email': 'voldemort@outlock.com' }
+let students = [{ 'id': 5835512110, 'name':'Akarachai Pannoi', 'email': 'ballboo088@gmail.com' },
+{ 'id': 5835512001 , 'name':'Lord Voldemort', 'email': 'voldemort@outlock.com' }
 ];
 
 //router.route('/students').get( (req,res) => res.sed('Hello') )
@@ -17,34 +17,34 @@ router.route('/students')
     .get((req, res) => res.json(students))
     .post((req, res) => {
         let student = {}
-        student.id = students[students.length - 1].id + 1
+        student.id = req.body.id
         student.name = req.body.name
-        student.weight = req.body.weight
+        student.email = req.body.email
         students.push(student)
-        res.json({ message: 'Bear created! ' })
+        res.json({ message: 'Student created! ' })
     })
 
-router.route('/students/:bear_id')
+router.route('/students/:id')
     .get((req, res) => {
-        let id = req.params.bear_id
+        let id = req.params.id
         let index = students.findIndex(student => (student.id === +id))
         res.json(students[index])                   // get a student
     })
 
     .put((req, res) => {                               // Update a student
-        let id = req.params.bear_id
+        let id = req.params.id
         let index = students.findIndex(student => (student.id === +id))
         students[index].name = req.body.name;
-        students[index].weight = req.body.weight;
-        res.json({ message: 'Bear updated!' + req.params.bear_id });
+        students[index].email = req.body.email;
+        res.json({ message: 'Student updated!' + req.params.id });
     })
 
     .delete((req, res) => {                   // Delete a student
-        // delete     students[req.params.bear_id]
-        let id = req.params.bear_id
+        // delete     students[req.params.id]
+        let id = req.params.id
         let index = students.findIndex(student => student.id === +id)
         students.splice(index, 1)
-        res.json({ message: 'Bear deleted: ' + req.params.bear_id });
+        res.json({ message: 'Student deleted: ' + req.params.id });
     })
 
 app.get('/', (req, res) => { res.send('Hello world') })

@@ -15,13 +15,15 @@ const Student = () => {
         const result = await axios.get(`http://localhost/api/students`) ;
         console.log(result.data)
         setStudents(result.data)
+        getStudents()
     }
-    const getStudent = async () => {
+    const getStudent = async (id) => {
         const result = await axios.get(`http://localhost/api/students/${id}`)
-        console.log(result.data)
+        console.log('ID : ' , result.data)
         setId(result.data.id)
         setName(result.data.name)
         setEmail(result.data.email)
+
     }
     const updateStudent = async (id) => {
         const result = await axios.put(`http://localhost/api/students/${id}`, {
@@ -42,7 +44,7 @@ const Student = () => {
         setEmail(result.data.email)
         getStudents()
     }
-    const deleteStudent = async () => {
+    const deleteStudent = async (id) => {
         const result = await axios.delete(`http://localhost/api/students/${id}`) ;
         getStudents()
     }
@@ -50,12 +52,14 @@ const Student = () => {
     const printStudent = () => {
         if (students && students.length )
             return students.map((student, index) => {
-                <li key={index} >
-                    {student.id} : {student.name} : {student.email}
-                    <button onClick={() => getStudent(student.id)} >Get</button>
-                    <button onClick={() => deleteStudent(student.id)} >Del</button>
-                    <button onClick={() => updateStudent(student.id)} > Update</button>
-                </li>
+                return (
+                    <li key={index} >
+                     {student.id} : {student.name} : {student.email}
+                        <button onClick={() => getStudent(student.id)} >Get</button>
+                        <button onClick={() => deleteStudent(student.id)} >Del</button>
+                        <button onClick={() => updateStudent(student.id)} > Update</button>
+                    </li>
+                )
             })
         else {
             return (<h2> Nothing Student</h2>)
@@ -68,7 +72,8 @@ const Student = () => {
             <ol>
                 {printStudent()}
             </ol>
-            Student: {id}, {name}, {email}
+            Student: {id} : {name} : {email}
+            <br />
             ID = <input type="text" name="id" onChange={(e) => setId(e.target.value)} /> <br/>
             Name = <input type="text" name="name" onChange={(e) => setName(e.target.value)} /> <br/>
             Email = <input type="text" name="email" onChange={(e) => setEmail(e.target.value)} /> <br/>
